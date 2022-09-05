@@ -3,11 +3,10 @@ package com.example.demo;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
 import javax.persistence.Enumerated;
 import java.util.Date;
 
-public class QuoteObject {
+public class QuoteNew {
 
     @JsonProperty
     private Integer quote_number;

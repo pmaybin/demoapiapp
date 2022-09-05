@@ -27,7 +27,7 @@ public class QuoteEndpoint {
     @ResponseStatus(HttpStatus.OK)
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(path="/new")
-    public @ResponseBody QuoteEntity addNewQuote(@RequestBody @NotNull QuoteObject body, HttpServletResponse response){
+    public @ResponseBody QuoteEntity addNewQuote(@RequestBody @NotNull QuoteNew body, HttpServletResponse response){
         System.out.println("Post NEW endpoint");
         DecimalFormat df = new DecimalFormat("0.00");
         df.setRoundingMode(RoundingMode.UP);
@@ -38,11 +38,6 @@ public class QuoteEndpoint {
         quote.setZip_code(body.getZip_code());
         quote.setState(body.getState());
         quote.setYear_built(body.getYear_built());
-
-//        System.out.println(body.getConstruction_type());
-
-
-
         quote.setConstruction_type(body.getConstruction_type());
         quote.setCreated_date(Date.from(Instant.now()));
 
@@ -68,7 +63,7 @@ public class QuoteEndpoint {
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(value = "/{quote_number}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public QuoteEntity getPremium(@PathVariable("quote_number") Integer quote_number) throws InvalidKeyException {
+    public QuoteEntity getExistingQuote(@PathVariable("quote_number") Integer quote_number) throws InvalidKeyException {
         System.out.println(quote_number);
         QuoteEntity quote = quoteRepository.findById(quote_number).orElseThrow(() -> new CaughtCustomException("Quote number not found"));
         return quoteRepository.findById(quote_number).orElse(new QuoteEntity());
